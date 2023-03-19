@@ -10,10 +10,11 @@ const displayData = cardsData => {
   cardsData.forEach( item => {
     const card = document.createElement('div');
     card.classList.add('card', 'm-2');
+    const IsInBookmark = checkBookMarked(item.id);
     card.innerHTML = `
     <div class="bookmark-icon">
-    <i title="Add Bookmark" onclick = "addToBookMark('${item.id}', '${item.name}', '${item.price}')" class="fa-solid fa-bookmark"></i>
-    <i title="Remove Bookmark" onclick = "removeFromBookMark('${item.id}')" class="fa-regular fa-bookmark"></i>
+    <i title="${IsInBookmark ? "Remove Bookmark" : "Add Bookmark"}" onclick = "${IsInBookmark ? `removeFromBookMark('${item.id}')` : `addToBookMark('${item.id}', '${item.name}', '${item.price}')`}" class="${IsInBookmark ? "fa-regular fa-bookmark" : "fa-solid fa-bookmark" }"></i>
+  
   </div>
   <div class="product-img-container">
     <img
@@ -65,6 +66,18 @@ const removeFromBookMark = id => {
   const itemsWithOutPresent = dataStoredInLocalStorage.filter(data => data.id != id);
   localStorage.setItem('_ctD', JSON.stringify(itemsWithOutPresent));
 }
+
+const checkBookMarked = id => {
+  const dataStoredInLocalStorage = JSON.parse(localStorage.getItem('_ctD'));
+  const isBookMarked = dataStoredInLocalStorage?.find( item => item.id == id);
+  if(isBookMarked){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 
 loadData()
 
