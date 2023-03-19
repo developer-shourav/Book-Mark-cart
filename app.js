@@ -60,6 +60,11 @@ const addToBookMark = ( id, name, price) => {
 
 }
 
+const removeFromBookMark = id => {
+  const dataStoredInLocalStorage = JSON.parse(localStorage.getItem('_ctD'));
+  const itemsWithOutPresent = dataStoredInLocalStorage.filter(data => data.id != id);
+  console.log(itemsWithOutPresent);
+}
 
 loadData()
 
