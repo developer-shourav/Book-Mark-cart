@@ -12,8 +12,8 @@ const displayData = cardsData => {
     card.classList.add('card', 'm-2');
     card.innerHTML = `
     <div class="bookmark-icon">
-    <i onclick = addToBookMark('${item.id}') class="fa-solid fa-bookmark"></i>
-    <i class="fa-regular fa-bookmark"></i>
+    <i onclick = "addToBookMark('${item.id}', '${item.name}', '${item.price}')" class="fa-solid fa-bookmark"></i>
+    <i onclick = "removeFromBookMark('${item.id}')" class="fa-regular fa-bookmark"></i>
   </div>
   <div class="product-img-container">
     <img
@@ -35,8 +35,29 @@ const displayData = cardsData => {
 
 
 
-const addToBookMark = id => {
-  console.log(id);
+const addToBookMark = ( id, name, price) => {
+  const dataStoredInLocalStorage = JSON.parse(localStorage.getItem('_ctD'));
+  const cartData = [];
+  if(dataStoredInLocalStorage){
+    const isAdded = dataStoredInLocalStorage.find(data => data.id == id);
+    if(isAdded){
+      Swal.fire({
+        icon: 'error',
+        title: 'Sorry Dude.',
+        text: 'This item is already bookmarked!',
+      })
+    }
+    else{
+      cartData.push(...dataStoredInLocalStorage, {id, name, price});
+      localStorage.setItem('_ctD', JSON.stringify(cartData));
+    }
+  }
+
+  else{
+       cartData.push(...cartData, {id, name, price});
+       localStorage.setItem('_ctD', JSON.stringify(cartData));
+  }
+
 }
 
 
