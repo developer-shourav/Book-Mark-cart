@@ -13,7 +13,7 @@ const displayData = cardsData => {
     const IsInBookmark = checkBookMarked(item.id);
     card.innerHTML = `
     <div class="bookmark-icon">
-    <i title="${IsInBookmark ? "Remove Bookmark" : "Add Bookmark"}" onclick = "${IsInBookmark ? `removeFromBookMark('${item.id}')` : `addToBookMark('${item.id}', '${item.name}', '${item.price}')`}" class="${IsInBookmark ? "fa-regular fa-bookmark" : "fa-solid fa-bookmark" }"></i>
+    <i title="${IsInBookmark ? "Remove Bookmark" : "Add Bookmark"}" onclick = "${IsInBookmark ? `removeFromBookMark('${item.id}')` : `addToBookMark('${item.id}', '${item.name}', '${item.price}')`}" class="${IsInBookmark ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark" }"></i>
   
   </div>
   <div class="product-img-container">
@@ -51,20 +51,48 @@ const addToBookMark = ( id, name, price) => {
     else{
       cartData.push(...dataStoredInLocalStorage, {id, name, price});
       localStorage.setItem('_ctD', JSON.stringify(cartData));
+      Swal.fire(
+        'Good job!',
+        'Successfully bookmarked!',
+        'success'
+      )
     }
   }
 
   else{
        cartData.push(...cartData, {id, name, price});
        localStorage.setItem('_ctD', JSON.stringify(cartData));
+       Swal.fire(
+        'Good job!',
+        'Successfully bookmarked!',
+        'success'
+      )
   }
 
 }
 
-const removeFromBookMark = id => {
+  const removeFromBookMark = id => {
   const dataStoredInLocalStorage = JSON.parse(localStorage.getItem('_ctD'));
   const itemsWithOutPresent = dataStoredInLocalStorage.filter(data => data.id != id);
-  localStorage.setItem('_ctD', JSON.stringify(itemsWithOutPresent));
+  
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "Want to remove form bookmark?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.setItem('_ctD', JSON.stringify(itemsWithOutPresent));
+      Swal.fire(
+        'Removed',
+        'Your bookmark has been removed.',
+        'success'
+      )
+    }
+  })
 }
 
 const checkBookMarked = id => {
