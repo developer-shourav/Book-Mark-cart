@@ -8,12 +8,11 @@ const loadData = () => {
 const displayData = cardsData => {
   const cardsContainer = document.getElementById('cards');
   cardsData.forEach( item => {
-    console.log(item);
     const card = document.createElement('div');
     card.classList.add('card', 'm-2');
     card.innerHTML = `
     <div class="bookmark-icon">
-    <i class="fa-solid fa-bookmark"></i>
+    <i onclick = addToBookMark('${item.id}') class="fa-solid fa-bookmark"></i>
     <i class="fa-regular fa-bookmark"></i>
   </div>
   <div class="product-img-container">
@@ -33,6 +32,13 @@ const displayData = cardsData => {
     cardsContainer.appendChild(card);
   });
 }
+
+
+
+const addToBookMark = id => {
+  console.log(id);
+}
+
 
 loadData()
 
