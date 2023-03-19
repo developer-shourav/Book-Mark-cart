@@ -1,5 +1,6 @@
 
 const loadData = () => {
+  loaderSpinner(true)
   fetch('./product.json')
   .then(res => res.json())
   .then(data => displayData(data))
@@ -32,6 +33,8 @@ const displayData = cardsData => {
     `;
     cardsContainer.appendChild(card);
   });
+
+  loaderSpinner(false)
 }
 
 
@@ -106,6 +109,18 @@ const checkBookMarked = id => {
   }
 }
 
+const loaderSpinner = value => {
+  const spinner = document.getElementById('spinner');
+  if (value) {
+    spinner.classList.remove('d-none');
+  }
+  else if(value === false){
+    spinner.classList.add('d-none');
+  }
+  else{
+    spinner.classList.add('d-none');
+  }
+}
 
 loadData()
 
