@@ -12,8 +12,8 @@ const displayData = cardsData => {
     card.classList.add('card', 'm-2');
     card.innerHTML = `
     <div class="bookmark-icon">
-    <i onclick = "addToBookMark('${item.id}', '${item.name}', '${item.price}')" class="fa-solid fa-bookmark"></i>
-    <i onclick = "removeFromBookMark('${item.id}')" class="fa-regular fa-bookmark"></i>
+    <i title="Add Bookmark" onclick = "addToBookMark('${item.id}', '${item.name}', '${item.price}')" class="fa-solid fa-bookmark"></i>
+    <i title="Remove Bookmark" onclick = "removeFromBookMark('${item.id}')" class="fa-regular fa-bookmark"></i>
   </div>
   <div class="product-img-container">
     <img
