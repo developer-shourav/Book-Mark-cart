@@ -15,7 +15,7 @@
     height: 350px;
     border: 1px solid gray;
     padding: 10px;
-    box-shadow: 4px 4px 8px gray;
+    box-shadow: 4px 4px 8px rgb(155, 158, 204);
     text-align: center;
 }
 .fa-bookmark{
